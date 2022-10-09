@@ -42,15 +42,10 @@ namespace cratesmith.assetui
 
             if (forObject is ScriptableObject || forObject is MonoBehaviour || forObject is GameObject || forObject is MonoScript)
             {
-            #if UNITY_2021_1_OR_NEWER
-                var icon = EditorGUIUtility.GetIconForObject(forObject);
-                if (icon) return icon;
-            #else
                 var ty = typeof(EditorGUIUtility);
                 var mi = ty.GetMethod("GetIconForObject", BindingFlags.NonPublic | BindingFlags.Static);
                 var icon = mi.Invoke(null, new object[] { forObject }) as Texture2D;
-                if(icon) return icon;
-            #endif
+                if (icon) return icon;
             }
     
             if (forObject is ScriptableObject || forObject is MonoBehaviour)
